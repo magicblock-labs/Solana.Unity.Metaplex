@@ -17,13 +17,13 @@
             alt="Join the discussion!"></a>
 </p>
 
-# What is Solnet.Metaplex?
+# What is Solana.Unity.Metaplex?
 
-[Solnet](https://github.com/bmresearch/Solnet) is Solana's .NET integration library, a number of packages that implement features to interact with
-Solana from .Net applications.
+Solana.Unity.Metaplex is a fork of Solnet.Metaplex compatible with Unity. It implements a Client for [Metaplex](https://www.metaplex.com).
 
-Solnet.Metaplex is a package within the same `Solnet.` namespace that implements a Client for [Metaplex](https://www.metaplex.com), this project is in a
-separate repository so it is contained, as the goal for [Solnet](https://github.com/bmresearch/Solnet) was to be a core SDK.
+Additionally, the library contains code generated for the programs of the [Metaplex program library](https://github.com/metaplex-foundation/metaplex-program-library#metaplex-program-library)
+
+Solana.Unity.Anchor rely on [Solana.Unity-Core](https://github.com/bmresearch/Solnet.Anchor) libraries.
 
 ## Features
 

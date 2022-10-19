@@ -613,3 +613,4 @@ src/.idea/
 riderModule.iml
 /_ReSharper.Caches/
 .vscode/
+*.DS_Store

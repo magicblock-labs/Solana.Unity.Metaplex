@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solnet.Metaplex", "Solnet.Metaplex\Solnet.Metaplex.csproj", "{71A4300E-545E-4754-99FD-BB1CBAD40CCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solana.Unity.Metaplex", "Solana.Unity.Metaplex\Solana.Unity.Metaplex.csproj", "{71A4300E-545E-4754-99FD-BB1CBAD40CCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

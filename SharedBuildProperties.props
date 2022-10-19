@@ -1,23 +1,23 @@
 <Project DefaultTargets="Build"
          xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <Product>Solnet.Template</Product>
+        <Product>Solnet.Unity.Metaplex</Product>
         <Version>0.0.1</Version>
-        <Copyright>Copyright 2021 &#169; blockmountain</Copyright>
-        <Authors>blockmountain</Authors>
-        <PublisherName>blockmountain</PublisherName>
-        <RepositoryUrl>https://github.com/bmresearch/Solnet.Template</RepositoryUrl>
+        <Copyright>Copyright 2022 &#169; Garbles Labs</Copyright>
+        <Authors>Garbles Labs</Authors>
+        <PublisherName>Garbles Labs</PublisherName>
+        <RepositoryUrl>https://github.com/garbles-labs/Solana.Unity.Metaplex</RepositoryUrl>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageDescription>Solnet.Template is a .Net integration library for Template.</PackageDescription>
-        <PackageTags>solana;solnet;sol;net5</PackageTags>
-        <PackageReleaseNotes>https://github.com/bmresearch/Solnet.Template/releases</PackageReleaseNotes>
+        <PackageDescription>garbles-labs/Solana.Unity.Metaplex is a .Net Unity integration library for Metaplex.</PackageDescription>
+        <PackageTags>solana;solnet;sol;net2.1;unity</PackageTags>
+        <PackageReleaseNotes>ttps://github.com/garbles-labs/Solana.Unity.Metaplex/releases</PackageReleaseNotes>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup Label="PackageIcon">
-        <None Include="$(MSBuildThisFileDirectory)/assets/solnet-metaplex-icon.png" Pack="true" Visible="false" PackagePath=""/>
+        <None Include="$(MSBuildThisFileDirectory)/assets/icon.png" Pack="true" Visible="false" PackagePath=""/>
     </ItemGroup>
 </Project>
