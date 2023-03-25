@@ -1,39 +1,41 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/mariomatic/Solana.Unity.Metaplex/master/assets/solnet-metaplex-icon.png" margin="auto" height="100"/>
+    <img src="https://raw.githubusercontent.com/magicblock-labs/Solana.Unity.Metaplex/master/assets/solnet-metaplex-icon.png" margin="auto" height="100"/>
 </p>
 
 <p align="center">
-    <a href="https://github.com/bmresearch/Solana.Unity.Metaplex/actions/workflows/dotnet.yml">
-        <img src="https://github.com/bmresearch/Solana.Unity.Metaplex/actions/workflows/dotnet.yml/badge.svg"
+    <a href="https://github.com/magicblock-labs/Solana.Unity.Metaplex/actions/workflows/dotnet.yml">
+        <img src="https://github.com/magicblock-labs/Solana.Unity.Metaplex/actions/workflows/dotnet.yml/badge.svg"
             alt="GitHub Workflow Build Status (master)" ></a>
     <a href="">
-        <img src="https://img.shields.io/github/license/bmresearch/solnet.Metaplex?style=flat-square"
+        <img src="https://img.shields.io/github/license/magicblock-labs/Solana.Unity.Metaplex?style=flat-square"
             alt="Code License"></a>
-    <a href="https://twitter.com/intent/follow?screen_name=blockmountainio">
-        <img src="https://img.shields.io/twitter/follow/blockmountainio?style=flat-square&logo=twitter"
+    <a href="https://twitter.com/intent/follow?screen_name=magicblock">
+        <img src="https://img.shields.io/twitter/follow/magicblock?style=flat-square&logo=twitter"
             alt="Follow on Twitter"></a>
-    <a href="https://discord.gg/YHMbpuS3Tx">
+    <a href="https://discord.com/invite/MBkdC3gxcv">
        <img alt="Discord" src="https://img.shields.io/discord/849407317761064961?style=flat-square"
             alt="Join the discussion!"></a>
 </p>
 
 # What is Solana.Unity.Metaplex?
 
-[Solnet](https://github.com/bmresearch/Solnet) is Solana's .NET integration library, a number of packages that implement features to interact with
-Solana from .Net applications. This SDK only covers NFTs and the vault program. More support for Bubblegum and the Auction house coming soon!
+Solana.Unity.Metaplex is a fork of Solnet.Metaplex compatible with Unity. It implements a Client for Metaplex.
 
 Solana.Unity.Metaplex is a package within the same `Solana.Unity.` namespace that implements a Client for [Metaplex](https://www.metaplex.com), this project is in a
-separate repository so it is contained, as the goal for [Solnet](https://github.com/bmresearch/Solnet) was to be a core SDK.
+separate repository so it is contained, as the goal for [Solana.Unity](https://github.com/magicblock-labs/Solana.Unity-Core) was to be a core SDK.
+
+# What is Solnet.Metaplex?
+
+[Solnet](https://github.com/bmresearch/Solnet) is Solana's .NET integration library, a number of packages that implement features to interact with
+Solana from .Net applications. This SDK only covers NFTs and the vault program. More support for Bubblegum and the Auction house coming soon!
 
 ## Features
 
 ## Requirements
-- net 6.0
-
-Backport to .NET standard 2.0 is available on Nuget under version 4.0.0
+- net 2.1
 
 ## Dependencies
-- Solnet
+- Solana.Unity
 
 ## Examples
 
@@ -123,20 +125,24 @@ Get the metadata of a token
 
 ## Contribution
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/bmresearch/Solana.Unity.Metaplex)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/magicblock-labs/Solana.Unity.Metaplex)
 
 We encourage everyone to contribute, submit issues, PRs, discuss. Every kind of help is welcome.
 
-## Contributors
+## Solana.Unity.Metaplex Contributors
+
+* **Gabriele Picco** - *Maintainer* - [mariomatic](https://github.com/GabrielePicco)
+
+## Solnet.Metaplex Contributors
 
 * **Mariomatic** - *Maintainer* - [mariomatic](https://github.com/mariomatic)
 * **BifrostTitan** - *Contributer* - [bifrosttitan](https://github.com/bifrosttitan)
 
-See also the list of [contributors](https://github.com/bmresearch/Solana.Unity.Metaplex/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/magicblock-labs/Solana.Unity.Metaplex/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/bmresearch/Solana.Unity.Metaplex/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/magicblock-labs/Solana.Unity.Metaplex/blob/master/LICENSE) file for details
 
 
 
