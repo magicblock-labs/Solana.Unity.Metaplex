@@ -1,19 +1,19 @@
 <Project DefaultTargets="Build"
          xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <Product>Solnet.Unity.Metaplex</Product>
-        <Version>0.0.1</Version>
-        <Copyright>Copyright 2022 &#169; Garbles Labs</Copyright>
-        <Authors>Garbles Labs</Authors>
-        <PublisherName>Garbles Labs</PublisherName>
-        <RepositoryUrl>https://github.com/garbles-labs/Solana.Unity.Metaplex</RepositoryUrl>
+        <Product>Solana.Unity.Metaplex</Product>
+        <Version>0.0.2</Version>
+        <Copyright>Copyright 2023 &#169; Magiblock</Copyright>
+        <Authors>Magiblock</Authors>
+        <PublisherName>Magiblock</PublisherName>
+        <RepositoryUrl>https://github.com/magicblock-labs/Solana.Unity.Metaplex</RepositoryUrl>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageDescription>garbles-labs/Solana.Unity.Metaplex is a .Net Unity integration library for Metaplex.</PackageDescription>
+        <PackageDescription>magicblock-labs/Solana.Unity.Metaplex is a .Net Unity integration library for Metaplex.</PackageDescription>
         <PackageTags>solana;solnet;sol;net2.1;unity</PackageTags>
-        <PackageReleaseNotes>ttps://github.com/garbles-labs/Solana.Unity.Metaplex/releases</PackageReleaseNotes>
+        <PackageReleaseNotes>https://github.com/magicblock-labs/Solana.Unity.Metaplex/releases</PackageReleaseNotes>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 

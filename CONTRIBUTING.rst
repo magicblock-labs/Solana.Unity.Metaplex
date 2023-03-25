@@ -1,7 +1,7 @@
 Introduction
 ============
 
-First off, thank you for considering contributing to Solnet. It's people like you that will make Solnet a great tool.
+First off, thank you for considering contributing to Solana.Unity. It's people like you that will make Solnet a great tool.
 
 
 Support questions

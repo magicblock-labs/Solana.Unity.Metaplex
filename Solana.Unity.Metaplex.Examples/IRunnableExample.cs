@@ -1,4 +1,6 @@
-namespace Solnet.Metaplex.Examples
+using System.Threading.Tasks;
+
+namespace Solana.Unity.Metaplex.Examples
 {
     /// <summary>
     /// Defines functionality for an example.
@@ -8,6 +10,6 @@ namespace Solnet.Metaplex.Examples
         /// <summary>
         /// Run the example.
         /// </summary>
-        void Run();
+        Task Run();
     }
 }

@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <Description>
@@ -16,18 +17,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
-        <PackageReference Include="Solana.Unity.Extensions" Version="2.6.0.9" />
-        <PackageReference Include="Solana.Unity.Keystore" Version="2.6.0.9" />
-        <PackageReference Include="Solana.Unity.Programs" Version="2.6.0.9" />
-        <PackageReference Include="Solana.Unity.Rpc" Version="2.6.0.9" />
-        <PackageReference Include="Solana.Unity.Wallet" Version="2.6.0.9" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Generated" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.*" />
+        <PackageReference Include="Solana.Unity.Extensions" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Keystore" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Programs" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Rpc" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Wallet" Version="2.6.0.11" />
     </ItemGroup>
 
     <Import Project="..\SharedBuildProperties.props" />
