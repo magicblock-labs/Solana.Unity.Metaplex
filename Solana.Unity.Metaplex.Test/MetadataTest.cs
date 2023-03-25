@@ -1,26 +1,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Solnet.Programs;
-using Solnet.Rpc;
-using Solnet.Rpc.Builders;
-using Solnet.Rpc.Utilities;
-using Solnet.Rpc.Models;
-using Solnet.Wallet;
-using Solnet.Wallet.Bip39;
+using Solana.Unity.Programs;
+using Solana.Unity.Rpc;
+using Solana.Unity.Rpc.Builders;
+using Solana.Unity.Wallet;
 using System.Collections.Generic;
 using System.Text;
 using System;
-using System.Threading;
-
-using Solnet.Metaplex;
+using Solana.Unity.Metaplex.NFT.Library;
 
 
-namespace Solnet.Metaplex.Test
+namespace Solana.Unity.Metaplex.Test
 {
     
 
     [TestClass]
-    public class MetatadaProgramTest
+    public class MetadataProgramTest
     {
 
         private string MnemonicWords = "volcano denial gloom bid lounge answer gas prevent deer magnet enrich message divide page slab category outer idle foster journey panel furnace brand leave";
@@ -35,7 +30,7 @@ namespace Solnet.Metaplex.Test
             Console.WriteLine(sb.ToString());
         }
         
-        //[TestMethod]
+        [TestMethod]
         public void MintToken()
         {
             var rpcClient = ClientFactory.GetClient(Cluster.DevNet); //, logger);
@@ -172,8 +167,8 @@ namespace Solnet.Metaplex.Test
             var c1 = new Creator( fromAccount.PublicKey, 50);
             var c2 = new Creator( wallet.GetAccount(101).PublicKey, 50, false);
 
-            //DATA
-            var data = new MetadataParameters()
+            //DATAMetadataParameters
+            var data = new Metadata()
             {
                 name = "ja sam test",
                 symbol = "A B C",
@@ -193,12 +188,13 @@ namespace Solnet.Metaplex.Test
                         fromAccount.PublicKey,  //PAYER
                         fromAccount.PublicKey,  //update Authority 
                         data,                   //DATA
+                        TokenStandard.NonFungible,
                         true,
                         true                    //ISMUTABLE
                     )
                 )
                  .AddInstruction(
-                     MetadataProgram.SignMetada(
+                     MetadataProgram.SignMetadata(
                          metadataAddress,
                          c2.key
                      )
@@ -228,14 +224,14 @@ namespace Solnet.Metaplex.Test
 
             Console.WriteLine($"Transaction sim: \n { txSim2.RawRpcResponse }");
 
-            Assert.IsFalse( txSim2.RawRpcResponse.Contains("Error"));
+            Assert.IsTrue( txSim2.WasSuccessful);
 
         }
 
         [TestMethod]
         public void TestGetAndDecodeMessage() 
         {
-            var client = Solnet.Rpc.ClientFactory.GetClient(Solnet.Rpc.Cluster.MainNet);
+            var client = Solana.Unity.Rpc.ClientFactory.GetClient(Solana.Unity.Rpc.Cluster.MainNet);
             var res = client.GetTransaction("3tpv4udpeQ9NZhCXRkVdPz7aJqqakLPurFTLtTR6Z7UEo9gtr7UCu9rLgFEfizYwB8sQHci9CTJdZex7qSsUr2EV");
 
 

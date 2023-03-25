@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Solnet.Metaplex.Examples
+namespace Solana.Unity.Metaplex.Examples
 {
     public class ExampleExplorer
     {
@@ -30,6 +30,7 @@ namespace Solnet.Metaplex.Examples
                     var example = (IRunnableExample)t.GetConstructor(Type.EmptyTypes).Invoke(null);
 
                     example.Run();
+                    
                 }
                 else
                 {

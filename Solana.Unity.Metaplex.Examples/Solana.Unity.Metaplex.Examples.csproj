@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Solana.Unity.Metaplex\Solana.Unity.Metaplex.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Solana.Unity.Programs" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Rpc" Version="2.6.0.11" />
+        <PackageReference Include="Solana.Unity.Wallet" Version="2.6.0.11" />
+    </ItemGroup>
+
+</Project>
