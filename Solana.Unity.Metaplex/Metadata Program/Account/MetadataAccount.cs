@@ -3,6 +3,7 @@ using Solana.Unity.Metaplex.Utilities;
 using Solana.Unity.Metaplex.Utilities.Json;
 using Solana.Unity.Programs.Utilities;
 using Solana.Unity.Rpc;
+using Solana.Unity.Rpc.Core.Http;
 using Solana.Unity.Rpc.Models;
 using Solana.Unity.Wallet;
 using System;
@@ -38,38 +39,56 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <summary> owner, should be Metadata program</summary>
         public PublicKey owner;
 
-        /// <summary> Constructor </summary>
-        /// <param name="accInfo"> Soloana account info </param>
-        public MetadataAccount(AccountInfo accInfo)
+        private MetadataAccount()
+        {
+            
+        }
+
+        /// <summary>
+        /// Constructor to build a MetadataAccount from a Solana AccountInfo
+        /// </summary>
+        /// <param name="accInfo"></param>
+        /// <returns></returns>
+        public static async Task<MetadataAccount> BuildMetadataAccount(AccountInfo accInfo)
         {
             try
             {
-                metadata = ParseData(accInfo.Data);
-                offchainData = FetchOffChainMetadata(metadata.uri);
-
+                var met = ParseData(accInfo.Data);
+                
+                
                 byte[] data = Convert.FromBase64String(accInfo.Data[0]);
-                Span<byte> _updateAuthority = data.AsSpan(1, 32);
-                Span<byte> _mint = data.AsSpan(33, 32);
-
-                owner = new PublicKey(accInfo.Owner);
-                updateAuthority = new PublicKey(_updateAuthority);
-                mint = new PublicKey(_mint);
+                
+                var updateAuthority = new ArraySegment<byte>( data, 1, 32).ToArray();
+                var mint = new ArraySegment<byte>( data, 33, 32).ToArray();
+                
+                var metadata = new MetadataAccount()
+                {
+                    metadata = met, 
+                    offchainData = await FetchOffChainMetadata(met.uri),
+                    owner = new PublicKey(accInfo.Owner),
+                    updateAuthority = new PublicKey(updateAuthority),
+                    mint = new PublicKey(mint)
+                };
+                return metadata;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+
+            return null;
         }
 
         /// <summary> Tries to get a json file from the uri </summary>
-        public static MetaplexTokenStandard FetchOffChainMetadata(string URI)
+        public static async Task<MetaplexTokenStandard> FetchOffChainMetadata(string URI)
         {
             MetaplexTokenStandard _Metadata = null;
             try
             {
                 using var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
-                var offsiteTokenRetrieval = httpClient.GetStringAsync(new Uri(URI)).Result;
+                var response = await CrossHttpClient.SendAsyncRequest(httpClient, new HttpRequestMessage(HttpMethod.Get, URI));
+                var offsiteTokenRetrieval = response.Content.ReadAsStringAsync().Result;
                 _Metadata = JsonConvert.DeserializeObject<MetaplexTokenStandard>(offsiteTokenRetrieval);
             }
             catch (Exception ex)
@@ -207,7 +226,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 if (accInfo.Owner.Contains("meta"))
                 {
                     //Triggered after first jump using token account address & metadata address has been retrieved from the first run
-                    return new MetadataAccount(accInfo);
+                    return await BuildMetadataAccount(accInfo);
                 }
                 else //Account Inception first jump - if metadata address doesnt return null
                 {
