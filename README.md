@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/magicblock-labs/Solana.Unity.Metaplex/master/assets/solnet-metaplex-icon.png" margin="auto" height="100"/>
+    <img src="https://raw.githubusercontent.com/magicblock-labs/Solana.Unity.Metaplex/master/assets/icon.png" margin="auto" height="100"/>
 </p>
 
 <p align="center">
@@ -131,7 +131,7 @@ We encourage everyone to contribute, submit issues, PRs, discuss. Every kind of 
 
 ## Solana.Unity.Metaplex Contributors
 
-* **Gabriele Picco** - *Maintainer* - [mariomatic](https://github.com/GabrielePicco)
+* **Gabriele Picco** - *Maintainer* - [GabrielePicco](https://github.com/GabrielePicco)
 
 ## Solnet.Metaplex Contributors
 
