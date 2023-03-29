@@ -6,6 +6,7 @@ using Solana.Unity.Rpc.Builders;
 using Solana.Unity.Rpc.Core.Http;
 using Solana.Unity.Rpc.Messages;
 using Solana.Unity.Rpc.Models;
+using Solana.Unity.Rpc.Types;
 using Solana.Unity.Wallet;
 using System;
 using System.Collections.Generic;
@@ -189,14 +190,16 @@ namespace Solana.Unity.Metaplex.NFT
             return tx;
 
         }
+
         /// <summary>
         /// Retrieve and view token metadata as a Metadata Account object
         /// </summary>
         /// <param name="tokenAddress"></param>
+        /// <param name="commitment"></param>
         /// <returns></returns>
-        public async Task<MetadataAccount> RetrieveTokenMetadata(PublicKey tokenAddress)
+        public async Task<MetadataAccount> RetrieveTokenMetadata(PublicKey tokenAddress, Commitment commitment = Commitment.Confirmed)
         {
-            return await MetadataAccount.GetAccount(RpcClient, tokenAddress);
+            return await MetadataAccount.GetAccount(RpcClient, tokenAddress, commitment);
         }
     }
 }

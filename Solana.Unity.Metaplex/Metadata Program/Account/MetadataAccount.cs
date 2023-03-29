@@ -5,6 +5,7 @@ using Solana.Unity.Programs.Utilities;
 using Solana.Unity.Rpc;
 using Solana.Unity.Rpc.Core.Http;
 using Solana.Unity.Rpc.Models;
+using Solana.Unity.Rpc.Types;
 using Solana.Unity.Wallet;
 using System;
 using System.Collections.Generic;
@@ -211,13 +212,14 @@ namespace Solana.Unity.Metaplex.NFT.Library
         }
 
         /// <summary>GetAccount Method Retrieves the metadata of a token including both onchain and offchain data</summary>
-        /// <param name="client"> solana rpcclient </param>
+        /// <param name="client"> solana rpc client </param>
         /// <param name="tokenAddress"> public key of a account to parse </param>
+        /// <param name="commitment"></param>
         /// <returns> Metadata account </returns>
         /// <remarks> it will try to find a metadata even from a token associated account </remarks>
-        async public static Task<MetadataAccount> GetAccount(IRpcClient client, PublicKey tokenAddress)
+        public static async Task<MetadataAccount> GetAccount(IRpcClient client, PublicKey tokenAddress, Commitment commitment = Commitment.Confirmed)
         {
-            var accInfoResponse = await client.GetAccountInfoAsync(tokenAddress.Key);
+            var accInfoResponse = await client.GetAccountInfoAsync(tokenAddress.Key, commitment);
 
             if (accInfoResponse.WasSuccessful)
             {
@@ -244,7 +246,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
                     }
 
                     //Loops back & handles it as a metadata address rather than a token account to retrieve metadata
-                    return await GetAccount(client, PDALookup.FindMetadataPDA(mintAccount));
+                    return await GetAccount(client, PDALookup.FindMetadataPDA(mintAccount), commitment);
                 }
             }
             else
