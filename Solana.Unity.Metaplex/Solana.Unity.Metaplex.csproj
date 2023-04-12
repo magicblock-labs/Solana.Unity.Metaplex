@@ -25,5 +25,11 @@
         <PackageReference Include="Solana.Unity.Wallet" Version="2.6.0.11" />
     </ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\link.xml">
+            <LogicalName>Solana.Unity.Metaplex.xml</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
+
     <Import Project="..\SharedBuildProperties.props" />
 </Project>

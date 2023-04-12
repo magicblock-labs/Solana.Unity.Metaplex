@@ -1,0 +1,10 @@
+<linker>
+  
+  <!--Preserve Solana.Unity.Metaplex assembly-->
+
+  <assembly fullname="Solana.Unity.Metaplex">
+    <namespace fullname="Solana.Unity.Metaplex" preserve="all"/>
+    <type fullname="Solana.Unity.Metaplex.*" preserve="all"/>
+  </assembly>
+
+</linker>
