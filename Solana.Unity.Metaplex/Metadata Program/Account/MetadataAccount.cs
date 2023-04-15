@@ -117,7 +117,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 uint sellerFee = binData.GetU16(MetadataPacketLayout.feeBasisOffset);
 
                 //bool hasCreators = binData.GetBool(MetadataPacketLayout.creatorSwitchOffset);
-                byte numOfCreators = binData.GetU8(MetadataPacketLayout.creatorsCountOffset);
+                int numOfCreators = (int) binData.GetU32(MetadataPacketLayout.creatorsCountOffset + 1);
 
                 IList<Creator> creators = null;
                 Uses usesInfo = null;
