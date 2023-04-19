@@ -36,7 +36,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <summary>
         /// Creators Count Stream Position
         /// </summary>
-        public const int creatorsCountOffset = 321;
+        public const int creatorsCountOffset = 322;
 
         //Anything beyond this point is dynamically determined based on data provided
     }

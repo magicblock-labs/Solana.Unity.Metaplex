@@ -265,9 +265,9 @@ namespace Solana.Unity.Metaplex.Test
         [TestMethod]
         public async Task TestGetMetadata() 
         {
-            var client = Solana.Unity.Rpc.ClientFactory.GetClient(Solana.Unity.Rpc.Cluster.MainNet);
+            var client = ClientFactory.GetClient(Cluster.MainNet);
 
-            string pk = "6s8xhWNqQQsHYJ3UAdxWSNMfaQ4fZ53kPsNt9tiqgdct";
+            string pk = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
 
             Console.WriteLine("### Get Metadata example ###");
             Console.WriteLine("Getting account {0}", pk );
