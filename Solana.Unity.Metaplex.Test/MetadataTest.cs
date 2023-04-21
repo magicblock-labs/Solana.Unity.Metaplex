@@ -267,7 +267,7 @@ namespace Solana.Unity.Metaplex.Test
         {
             var client = ClientFactory.GetClient(Cluster.MainNet);
 
-            string pk = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263";
+            string pk = "DVg3G6KDbUgrAZkW8WWyhLrzLAku74KPYY9G2YbwxMFs";
 
             Console.WriteLine("### Get Metadata example ###");
             Console.WriteLine("Getting account {0}", pk );
