@@ -261,8 +261,9 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <param name="mintAuthority"> Mint authority on the metadata's mint - THIS WILL TRANSFER AUTHORITY AWAY FROM THIS KEY </param>
         /// <param name="payer"></param>
         /// <param name="metadataKey"></param>
+        /// <param name="version"></param>
         /// <returns> Transaction instruction. </returns>/
-        public static TransactionInstruction CreateMasterEdition(ulong? maxSupply, PublicKey masterEditionKey, PublicKey mintKey, PublicKey updateAuthorityKey, PublicKey mintAuthority, PublicKey payer, PublicKey metadataKey)
+        public static TransactionInstruction CreateMasterEdition(ulong? maxSupply, PublicKey masterEditionKey, PublicKey mintKey, PublicKey updateAuthorityKey, PublicKey mintAuthority, PublicKey payer, PublicKey metadataKey, CreateMasterEditionVersion version = CreateMasterEditionVersion.V1)
         {
             List<AccountMeta> keys = new()
             {
@@ -281,9 +282,10 @@ namespace Solana.Unity.Metaplex.NFT.Library
             {
                 ProgramId = ProgramIdKey.KeyBytes,
                 Keys = keys,
-                Data = MetadataProgramData.EncodeCreateMasterEdition(maxSupply)
+                Data = MetadataProgramData.EncodeCreateMasterEdition(maxSupply, version)
             };
         }
+        
 
         /// <summary>
         ///  Mint a new edition via token

@@ -277,12 +277,20 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <summary>
         /// Make encodings for CreateMasterEdition instruction
         /// </summary> 
-        public static byte[] EncodeCreateMasterEdition(ulong? maxSupply)
+        public static byte[] EncodeCreateMasterEdition(ulong? maxSupply, CreateMasterEditionVersion version)
         {
             var buffer = new MemoryStream();
             BinaryWriter writer = new(buffer);
 
-            writer.Write((byte)InstructionID.CreateMasterEdition);
+            switch (version)
+            {
+                case CreateMasterEditionVersion.V1:
+                    writer.Write((byte)InstructionID.CreateMasterEdition);
+                    break;
+                case CreateMasterEditionVersion.V3:
+                    writer.Write((byte)InstructionID.CreateMasterEditionV3);
+                    break;
+            }
 
             if (maxSupply == null)
             {

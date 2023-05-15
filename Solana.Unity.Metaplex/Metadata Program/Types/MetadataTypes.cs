@@ -326,6 +326,17 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <summary>  Programmabled metadata version 4 </summary>
         V4
     }
+    
+    /// <summary>
+    /// Master edition version
+    /// </summary>
+    public enum CreateMasterEditionVersion
+    {
+        /// <summary>  Original master edition version 1 </summary>
+        V1,
+        /// <summary>  Enhanced master edition version 3 </summary>
+        V3,
+    }
 
     /// <summary>
     /// Metadata Versions - Used to override the version when creating the metadata. Use the latest version when minting a new collection
@@ -432,6 +443,11 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// 
         /// </summary>
         CreateMasterEdition = 10,
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        CreateMasterEditionV3 = 17,
 
         /// <summary>
         /// 
