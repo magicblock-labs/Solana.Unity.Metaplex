@@ -306,6 +306,16 @@ namespace Solana.Unity.Metaplex.Test
             }
 
             Console.WriteLine ( "------------------");
+            
+            // Assertion for https://explorer.solana.com/address/DVg3G6KDbUgrAZkW8WWyhLrzLAku74KPYY9G2YbwxMFs
+            
+            Assert.IsTrue(account.offchainData.name.Equals("SMB #4839"));
+            Assert.IsTrue(account.metadata.creators.Count > 0);
+            Assert.IsTrue(account.metadata.creators[0].key
+                .Equals(new PublicKey($"mdaoxg4DVGptU4WSpzGyVpK3zqsgn7Qzx5XNgWTcEA2")));
+            Assert.IsTrue(account.metadata.creators[0].verified);
+            Assert.IsTrue(account.metadata.collectionLink.key.Equals(new PublicKey("SMBtHCCC6RYRutFEPb4gZqeBLUZbMNhRKaMKZZLHi7W")));
+            Assert.IsTrue(account.metadata.collectionLink.verified);
         }
         
     }

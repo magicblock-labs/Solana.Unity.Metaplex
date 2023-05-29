@@ -124,15 +124,12 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 Collection collectionLink = null;
                 ProgrammableConfig programmableconfig = null;
                 int o = 0;
-                bool hasCreators = true;
-
-                if (binData.Length < MetadataPacketLayout.creatorsCountOffset + 5 + numOfCreators * (32 + 1 + 1))
-                    hasCreators = false;
+                bool hasCreators = !(binData.Length < MetadataPacketLayout.creatorsCountOffset + 5 + numOfCreators * (32 + 1 + 1));
 
                 if (hasCreators == true)
                 {
-                    creators = MetadataProgramData.DecodeCreators(binData.GetSpan(MetadataPacketLayout.creatorsCountOffset + 5, numOfCreators * (32 + 1 + 1)));
-                    o = MetadataPacketLayout.creatorsCountOffset + 5 + numOfCreators * (32 + 1 + 1);
+                    creators = MetadataProgramData.DecodeCreators(binData.GetSpan(MetadataPacketLayout.creatorsCountOffset + 4, numOfCreators * (32 + 2)));
+                    o = MetadataPacketLayout.creatorsCountOffset + 4 + numOfCreators * (32 + 2);
 
                 }
                 else
