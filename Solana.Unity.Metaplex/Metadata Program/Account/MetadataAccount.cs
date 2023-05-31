@@ -217,39 +217,33 @@ namespace Solana.Unity.Metaplex.NFT.Library
         public static async Task<MetadataAccount> GetAccount(IRpcClient client, PublicKey tokenAddress, Commitment commitment = Commitment.Confirmed)
         {
             var accInfoResponse = await client.GetAccountInfoAsync(tokenAddress.Key, commitment);
-
-            if (accInfoResponse.WasSuccessful)
+            if (!accInfoResponse.WasSuccessful) return null;
+            AccountInfo accInfo = accInfoResponse.Result.Value;
+            if (accInfo == null) return null;
+            
+            //Account Inception loop to retrieve metadata
+            if (accInfo.Owner.Contains("meta"))
             {
-                AccountInfo accInfo = accInfoResponse.Result.Value;
-                //Account Inception loop to retrieve metadata
-                if (accInfo.Owner.Contains("meta"))
-                {
-                    //Triggered after first jump using token account address & metadata address has been retrieved from the first run
-                    return await BuildMetadataAccount(accInfo);
-                }
-                else //Account Inception first jump - if metadata address doesnt return null
-                {
-                    byte[] rawdata = Convert.FromBase64String(accInfo.Data[0]);
-                    PublicKey mintAccount;
+                //Triggered after first jump using token account address & metadata address has been retrieved from the first run
+                return await BuildMetadataAccount(accInfo);
+            }
 
-                    if (rawdata.Length == 165)
-                    {
-                        byte[] _mint = rawdata.AsSpan(0, 32).ToArray();
-                        mintAccount = new PublicKey(_mint);
-                    }
-                    else
-                    {
-                        mintAccount = tokenAddress;
-                    }
+            //Account Inception first jump - if metadata address doesnt return null
+            byte[] rawdata = Convert.FromBase64String(accInfo.Data[0]);
+            PublicKey mintAccount;
 
-                    //Loops back & handles it as a metadata address rather than a token account to retrieve metadata
-                    return await GetAccount(client, PDALookup.FindMetadataPDA(mintAccount), commitment);
-                }
+            if (rawdata.Length == 165)
+            {
+                byte[] _mint = rawdata.AsSpan(0, 32).ToArray();
+                mintAccount = new PublicKey(_mint);
             }
             else
             {
-                return null;
+                mintAccount = tokenAddress;
             }
+
+            //Loops back & handles it as a metadata address rather than a token account to retrieve metadata
+            return await GetAccount(client, PDALookup.FindMetadataPDA(mintAccount), commitment);
         }
     }
 }
