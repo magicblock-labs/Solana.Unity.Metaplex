@@ -215,8 +215,6 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
     {
         public string Uuid { get; set; }
 
-        public ulong Price { get; set; }
-
         public string Symbol { get; set; }
 
         public ushort SellerFeeBasisPoints { get; set; }
@@ -225,28 +223,18 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
 
         public bool IsMutable { get; set; }
 
-        public bool RetainAuthority { get; set; }
-
-        public long? GoLiveDate { get; set; }
-
-        public EndSettings EndSettings { get; set; }
-
         public Creator[] Creators { get; set; }
+
+        public ConfigLineSettings ConfigLineSettings { get; set; }
 
         public HiddenSettings HiddenSettings { get; set; }
 
-        public WhitelistMintSettings WhitelistMintSettings { get; set; }
-
         public ulong ItemsAvailable { get; set; }
-
-        public GatekeeperConfig Gatekeeper { get; set; }
 
         public int Serialize(byte[] _data, int initialOffset)
         {
             int offset = initialOffset;
             offset += _data.WriteBorshString(Uuid, offset);
-            _data.WriteU64(Price, offset);
-            offset += 8;
             offset += _data.WriteBorshString(Symbol, offset);
             _data.WriteU16(SellerFeeBasisPoints, offset);
             offset += 2;
@@ -254,35 +242,9 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
             offset += 8;
             _data.WriteBool(IsMutable, offset);
             offset += 1;
-            _data.WriteBool(RetainAuthority, offset);
-            offset += 1;
-            if (GoLiveDate != null)
-            {
-                _data.WriteU8(1, offset);
-                offset += 1;
-                _data.WriteS64(GoLiveDate.Value, offset);
-                offset += 8;
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
-
-            if (EndSettings != null)
-            {
-                _data.WriteU8(1, offset);
-                offset += 1;
-                offset += EndSettings.Serialize(_data, offset);
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
-
             _data.WriteS32(Creators.Length, offset);
             offset += 4;
+
             foreach (var creatorsElement in Creators)
             {
                 offset += creatorsElement.Serialize(_data, offset);
@@ -300,32 +262,8 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
                 offset += 1;
             }
 
-            if (WhitelistMintSettings != null)
-            {
-                _data.WriteU8(1, offset);
-                offset += 1;
-                offset += WhitelistMintSettings.Serialize(_data, offset);
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
-
             _data.WriteU64(ItemsAvailable, offset);
             offset += 8;
-            if (Gatekeeper != null)
-            {
-                _data.WriteU8(1, offset);
-                offset += 1;
-                offset += Gatekeeper.Serialize(_data, offset);
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
-
             return offset - initialOffset;
         }
 
@@ -335,8 +273,6 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
             result = new CandyMachineData();
             offset += _data.GetBorshString(offset, out var resultUuid);
             result.Uuid = resultUuid;
-            result.Price = _data.GetU64(offset);
-            offset += 8;
             offset += _data.GetBorshString(offset, out var resultSymbol);
             result.Symbol = resultSymbol;
             result.SellerFeeBasisPoints = _data.GetU16(offset);
@@ -345,19 +281,6 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
             offset += 8;
             result.IsMutable = _data.GetBool(offset);
             offset += 1;
-            result.RetainAuthority = _data.GetBool(offset);
-            offset += 1;
-            if (_data.GetBool(offset++))
-            {
-                result.GoLiveDate = _data.GetS64(offset);
-                offset += 8;
-            }
-
-            if (_data.GetBool(offset++))
-            {
-                offset += EndSettings.Deserialize(_data, offset, out var resultEndSettings);
-                result.EndSettings = resultEndSettings;
-            }
 
             int resultCreatorsLength = (int)_data.GetU32(offset);
             offset += 4;
@@ -374,19 +297,8 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
                 result.HiddenSettings = resultHiddenSettings;
             }
 
-            if (_data.GetBool(offset++))
-            {
-                offset += WhitelistMintSettings.Deserialize(_data, offset, out var resultWhitelistMintSettings);
-                result.WhitelistMintSettings = resultWhitelistMintSettings;
-            }
-
             result.ItemsAvailable = _data.GetU64(offset);
             offset += 8;
-            if (_data.GetBool(offset++))
-            {
-                offset += GatekeeperConfig.Deserialize(_data, offset, out var resultGatekeeper);
-                result.Gatekeeper = resultGatekeeper;
-            }
 
             return offset - initialOffset;
         }
@@ -414,34 +326,6 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
             result.Name = resultName;
             offset += _data.GetBorshString(offset, out var resultUri);
             result.Uri = resultUri;
-            return offset - initialOffset;
-        }
-    }
-
-    public partial class EndSettings
-    {
-        public EndSettingType EndSettingType { get; set; }
-
-        public ulong Number { get; set; }
-
-        public int Serialize(byte[] _data, int initialOffset)
-        {
-            int offset = initialOffset;
-            _data.WriteU8((byte)EndSettingType, offset);
-            offset += 1;
-            _data.WriteU64(Number, offset);
-            offset += 8;
-            return offset - initialOffset;
-        }
-
-        public static int Deserialize(ReadOnlySpan<byte> _data, int initialOffset, out EndSettings result)
-        {
-            int offset = initialOffset;
-            result = new EndSettings();
-            result.EndSettingType = (EndSettingType)_data.GetU8(offset);
-            offset += 1;
-            result.Number = _data.GetU64(offset);
-            offset += 8;
             return offset - initialOffset;
         }
     }
@@ -512,98 +396,48 @@ namespace Solana.Unity.Metaplex.Candymachine.Types
         }
     }
 
-    public partial class WhitelistMintSettings
+    public partial class ConfigLineSettings
     {
-        public WhitelistMintMode Mode { get; set; }
+        public string PrefixName { get; set; }
 
-        public PublicKey Mint { get; set; }
+        public uint NameLength { get; set; }
 
-        public bool Presale { get; set; }
+        public string PrefixUri { get; set; }
 
-        public ulong? DiscountPrice { get; set; }
+        public uint UriLength { get; set; }
+
+        public bool IsSequential { get; set; }
 
         public int Serialize(byte[] _data, int initialOffset)
         {
             int offset = initialOffset;
-            _data.WriteU8((byte)Mode, offset);
+            offset += _data.WriteBorshString(PrefixName, offset);
+            _data.WriteU32(NameLength, offset);
+            offset += 4;
+            offset += _data.WriteBorshString(PrefixUri, offset);
+            _data.WriteU32(UriLength, offset);
+            offset += 4;
+            _data.WriteBool(IsSequential, offset);
             offset += 1;
-            _data.WritePubKey(Mint, offset);
-            offset += 32;
-            _data.WriteBool(Presale, offset);
-            offset += 1;
-            if (DiscountPrice != null)
-            {
-                _data.WriteU8(1, offset);
-                offset += 1;
-                _data.WriteU64(DiscountPrice.Value, offset);
-                offset += 8;
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
-
             return offset - initialOffset;
         }
 
-        public static int Deserialize(ReadOnlySpan<byte> _data, int initialOffset, out WhitelistMintSettings result)
+        public static int Deserialize(ReadOnlySpan<byte> _data, int initialOffset, out ConfigLineSettings result)
         {
             int offset = initialOffset;
-            result = new WhitelistMintSettings();
-            result.Mode = (WhitelistMintMode)_data.GetU8(offset);
-            offset += 1;
-            result.Mint = _data.GetPubKey(offset);
-            offset += 32;
-            result.Presale = _data.GetBool(offset);
-            offset += 1;
-            if (_data.GetBool(offset++))
-            {
-                result.DiscountPrice = _data.GetU64(offset);
-                offset += 8;
-            }
-
-            return offset - initialOffset;
-        }
-    }
-
-    public partial class GatekeeperConfig
-    {
-        public PublicKey GatekeeperNetwork { get; set; }
-
-        public bool ExpireOnUse { get; set; }
-
-        public int Serialize(byte[] _data, int initialOffset)
-        {
-            int offset = initialOffset;
-            _data.WritePubKey(GatekeeperNetwork, offset);
-            offset += 32;
-            _data.WriteBool(ExpireOnUse, offset);
-            offset += 1;
-            return offset - initialOffset;
-        }
-
-        public static int Deserialize(ReadOnlySpan<byte> _data, int initialOffset, out GatekeeperConfig result)
-        {
-            int offset = initialOffset;
-            result = new GatekeeperConfig();
-            result.GatekeeperNetwork = _data.GetPubKey(offset);
-            offset += 32;
-            result.ExpireOnUse = _data.GetBool(offset);
+            result = new ConfigLineSettings();
+            offset += _data.GetBorshString(offset, out var resultPrefixName);
+            result.PrefixName = resultPrefixName;
+            result.NameLength = _data.GetU32(offset);
+            offset += 4;
+            offset += _data.GetBorshString(offset, out var resultPrefixUri);
+            result.PrefixUri = resultPrefixUri;
+            result.UriLength = _data.GetU32(offset);
+            offset += 4;
+            result.IsSequential = _data.GetBool(offset);
             offset += 1;
             return offset - initialOffset;
         }
     }
 
-    public enum EndSettingType : byte
-    {
-        Date,
-        Amount
-    }
-
-    public enum WhitelistMintMode : byte
-    {
-        BurnEveryTime,
-        NeverBurn
-    }
 }
