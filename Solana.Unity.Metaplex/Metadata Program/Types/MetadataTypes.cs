@@ -2,6 +2,7 @@
 using Solana.Unity.Wallet;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Solana.Unity.Metaplex.NFT.Library
 

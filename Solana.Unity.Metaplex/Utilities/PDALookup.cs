@@ -109,12 +109,20 @@ namespace Solana.Unity.Metaplex.Utilities
         /// <returns></returns>
         public static PublicKey FindDelegateRecordPDA(PublicKey updateAuthority, PublicKey mintAddress, PublicKey delegateAddress, MetadataDelegateRole delegateRole)
         {
+            var delegateRoleString = delegateRole switch
+            {
+                MetadataDelegateRole.Collection => "collection_delegate",
+                MetadataDelegateRole.Authority => "authority_item_delegate",
+                MetadataDelegateRole.Use => "use_delegate",
+                MetadataDelegateRole.Update => "update_delegate",
+                _ => null
+            };
             bool foundRecord = PublicKey.TryFindProgramAddress(
                 new List<byte[]>() {
                     Encoding.UTF8.GetBytes("metadata"),
                     MetadataProgram.ProgramIdKey,
                     mintAddress,
-                    new byte[1]{ (byte)delegateRole },
+                    Encoding.UTF8.GetBytes(delegateRoleString),
                     updateAuthority,
                     delegateAddress
                 },
