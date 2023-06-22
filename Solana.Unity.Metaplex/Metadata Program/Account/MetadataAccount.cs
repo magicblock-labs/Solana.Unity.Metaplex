@@ -10,6 +10,7 @@ using Solana.Unity.Wallet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +53,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
         /// <returns></returns>
         public static async Task<MetadataAccount> BuildMetadataAccount(AccountInfo accInfo)
         {
+            var pkMint = PublicKey.DefaultPublicKey;
             try
             {
                 var met = ParseData(accInfo.Data);
@@ -61,20 +63,21 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 
                 var updateAuthority = new ArraySegment<byte>( data, 1, 32).ToArray();
                 var mint = new ArraySegment<byte>( data, 33, 32).ToArray();
-                
+                pkMint = new PublicKey(mint);
+
                 var metadata = new MetadataAccount()
                 {
-                    metadata = met, 
+                    metadata = met,
                     offchainData = await FetchOffChainMetadata(met.uri),
                     owner = new PublicKey(accInfo.Owner),
                     updateAuthority = new PublicKey(updateAuthority),
-                    mint = new PublicKey(mint)
+                    mint = pkMint
                 };
                 return metadata;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine($"Error loading nft: {pkMint}", ex);
             }
 
             return null;
@@ -89,8 +92,10 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 using var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
                 var response = await CrossHttpClient.SendAsyncRequest(httpClient, new HttpRequestMessage(HttpMethod.Get, URI));
-                var offsiteTokenRetrieval = response.Content.ReadAsStringAsync().Result;
-                _Metadata = JsonConvert.DeserializeObject<MetaplexTokenStandard>(offsiteTokenRetrieval);
+                if(response == null) throw new Exception("Response is null");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if(response.StatusCode != HttpStatusCode.OK) throw new Exception(responseContent);
+                _Metadata = JsonConvert.DeserializeObject<MetaplexTokenStandard>(responseContent);
             }
             catch (Exception ex)
             {
