@@ -1063,6 +1063,13 @@ namespace Solana.Unity.Metaplex.CandyGuard
         }
     }
 
+    public partial class GuardData { 
+        
+        public GuardSet Default { get; set; }
+
+        public Group[] Groups { get; set; }
+    }
+
     public enum GuardType : byte
     {
         BotTax,
