@@ -269,6 +269,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
             editionNonce = _editionNonce;
             tokenStandard = _tokenStandard;
             programmableConfig = programmableconfig;
+            hasCreators = _creators is { Count: > 0 };
         }
     }
 
