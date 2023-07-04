@@ -1,6 +1,7 @@
 ﻿using Solana.Unity.Programs.Utilities;
 using Solana.Unity.Wallet;
 using System;
+using System.Text;
 
 namespace Solana.Unity.Metaplex.CandyGuard
 {
@@ -627,8 +628,15 @@ namespace Solana.Unity.Metaplex.CandyGuard
         }
     }
 
+    /// <summary>
+    /// WARNING: This class has an edited Serializer from the IDL due to additional flags being
+    /// required in the serialized form.
+    /// </summary>
     public partial class GuardSet
     {
+
+        private static int GUARD_COUNT = 21;
+
         public BotTax BotTax { get; set; }
 
         public SolPayment SolPayment { get; set; }
@@ -673,259 +681,158 @@ namespace Solana.Unity.Metaplex.CandyGuard
 
         public int Serialize(byte[] _data, int initialOffset)
         {
-            int offset = initialOffset;
+            // Keep space open for feature flags.
+            int offset = initialOffset + 8;
+            int features = 0;
+            int index = 0;
             if (BotTax != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += BotTax.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (SolPayment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += SolPayment.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (TokenPayment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += TokenPayment.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (StartDate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += StartDate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (ThirdPartySigner != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += ThirdPartySigner.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (TokenGate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += TokenGate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (Gatekeeper != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += Gatekeeper.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (EndDate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += EndDate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (AllowList != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += AllowList.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (MintLimit != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += MintLimit.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (NftPayment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += NftPayment.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (RedeemedAmount != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += RedeemedAmount.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (AddressGate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += AddressGate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (NftGate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += NftGate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (NftBurn != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += NftBurn.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (TokenBurn != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += TokenBurn.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (FreezeSolPayment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += FreezeSolPayment.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (FreezeTokenPayment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += FreezeTokenPayment.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (ProgramGate != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += ProgramGate.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (Allocation != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += Allocation.Serialize(_data, offset);
+                features |= 1 << index;
             }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
-            }
+            index++;
 
             if (Token2022Payment != null)
             {
-                _data.WriteU8(1, offset);
-                offset += 1;
                 offset += Token2022Payment.Serialize(_data, offset);
-            }
-            else
-            {
-                _data.WriteU8(0, offset);
-                offset += 1;
+                features |= 1 << index;
             }
 
+            // Write feature flags.
+            _data.WriteU64((ulong)features, initialOffset);
             return offset - initialOffset;
         }
 
@@ -933,141 +840,145 @@ namespace Solana.Unity.Metaplex.CandyGuard
         {
             int offset = initialOffset;
             result = new GuardSet();
-            if (_data.GetBool(offset++))
+            // Get feature flags
+            var featureFlags = (int)_data.GetU64(offset);
+            offset += 8;
+
+            // Find enabled guards.
+            var guards = new bool[GUARD_COUNT];
+            for (int i = 0; i < GUARD_COUNT; i++)
             {
-                offset += BotTax.Deserialize(_data, offset, out var resultBotTax);
-                result.BotTax = resultBotTax;
+                guards[i] = Convert.ToBoolean((1 << i) & featureFlags);
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.BotTax])
             {
-                offset += SolPayment.Deserialize(_data, offset, out var resultSolPayment);
-                result.SolPayment = resultSolPayment;
+                offset += BotTax.Deserialize(_data, offset, out var botTax);
+                result.BotTax = botTax;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.SolPayment])
             {
-                offset += TokenPayment.Deserialize(_data, offset, out var resultTokenPayment);
-                result.TokenPayment = resultTokenPayment;
+                offset += SolPayment.Deserialize(_data, offset, out var solPayment);
+                result.SolPayment = solPayment;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.TokenPayment])
             {
-                offset += StartDate.Deserialize(_data, offset, out var resultStartDate);
-                result.StartDate = resultStartDate;
+                offset += TokenPayment.Deserialize(_data, offset, out var tokenPayment);
+                result.TokenPayment = tokenPayment;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.StartDate])
             {
-                offset += ThirdPartySigner.Deserialize(_data, offset, out var resultThirdPartySigner);
-                result.ThirdPartySigner = resultThirdPartySigner;
+                offset += StartDate.Deserialize(_data, offset, out var startDate);
+                result.StartDate = startDate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.ThirdPartySigner])
             {
-                offset += TokenGate.Deserialize(_data, offset, out var resultTokenGate);
-                result.TokenGate = resultTokenGate;
+                offset += ThirdPartySigner.Deserialize(_data, offset, out var thirdPartySigner);
+                result.ThirdPartySigner = thirdPartySigner;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.TokenGate])
             {
-                offset += Gatekeeper.Deserialize(_data, offset, out var resultGatekeeper);
-                result.Gatekeeper = resultGatekeeper;
+                offset += TokenGate.Deserialize(_data, offset, out var tokenGate);
+                result.TokenGate = tokenGate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.Gatekeeper])
             {
-                offset += EndDate.Deserialize(_data, offset, out var resultEndDate);
-                result.EndDate = resultEndDate;
+                offset += Gatekeeper.Deserialize(_data, offset, out var gatekeeper);
+                result.Gatekeeper = gatekeeper;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.EndDate])
             {
-                offset += AllowList.Deserialize(_data, offset, out var resultAllowList);
-                result.AllowList = resultAllowList;
+                offset += EndDate.Deserialize(_data, offset, out var endDate);
+                result.EndDate = endDate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.AllowList])
             {
-                offset += MintLimit.Deserialize(_data, offset, out var resultMintLimit);
-                result.MintLimit = resultMintLimit;
+                offset += AllowList.Deserialize(_data, offset, out var allowList);
+                result.AllowList = allowList;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.MintLimit])
             {
-                offset += NftPayment.Deserialize(_data, offset, out var resultNftPayment);
-                result.NftPayment = resultNftPayment;
+                offset += MintLimit.Deserialize(_data, offset, out var mintLimit);
+                result.MintLimit = mintLimit;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.NftPayment])
             {
-                offset += RedeemedAmount.Deserialize(_data, offset, out var resultRedeemedAmount);
-                result.RedeemedAmount = resultRedeemedAmount;
+                offset += NftPayment.Deserialize(_data, offset, out var nftPayment);
+                result.NftPayment = nftPayment;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.RedeemedAmount])
             {
-                offset += AddressGate.Deserialize(_data, offset, out var resultAddressGate);
-                result.AddressGate = resultAddressGate;
+                offset += RedeemedAmount.Deserialize(_data, offset, out var redeemedAmount);
+                result.RedeemedAmount = redeemedAmount;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.AddressGate])
             {
-                offset += NftGate.Deserialize(_data, offset, out var resultNftGate);
-                result.NftGate = resultNftGate;
+                offset += AddressGate.Deserialize(_data, offset, out var addressGate);
+                result.AddressGate = addressGate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.NftGate])
             {
-                offset += NftBurn.Deserialize(_data, offset, out var resultNftBurn);
-                result.NftBurn = resultNftBurn;
+                offset += NftGate.Deserialize(_data, offset, out var nftGate);
+                result.NftGate = nftGate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.NftBurn])
             {
-                offset += TokenBurn.Deserialize(_data, offset, out var resultTokenBurn);
-                result.TokenBurn = resultTokenBurn;
+                offset += NftBurn.Deserialize(_data, offset, out var nftBurn);
+                result.NftBurn = nftBurn;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.TokenBurn])
             {
-                offset += FreezeSolPayment.Deserialize(_data, offset, out var resultFreezeSolPayment);
-                result.FreezeSolPayment = resultFreezeSolPayment;
+                offset += TokenBurn.Deserialize(_data, offset, out var tokenBurn);
+                result.TokenBurn = tokenBurn;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.FreezeSolPayment])
             {
-                offset += FreezeTokenPayment.Deserialize(_data, offset, out var resultFreezeTokenPayment);
-                result.FreezeTokenPayment = resultFreezeTokenPayment;
+                offset += FreezeSolPayment.Deserialize(_data, offset, out var freezeSol);
+                result.FreezeSolPayment = freezeSol;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.FreezeTokenPayment])
             {
-                offset += ProgramGate.Deserialize(_data, offset, out var resultProgramGate);
-                result.ProgramGate = resultProgramGate;
+                offset += FreezeTokenPayment.Deserialize(_data, offset, out var freezeToken);
+                result.FreezeTokenPayment = freezeToken;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.ProgramGate])
             {
-                offset += Allocation.Deserialize(_data, offset, out var resultAllocation);
-                result.Allocation = resultAllocation;
+                offset += ProgramGate.Deserialize(_data, offset, out var programGate);
+                result.ProgramGate = programGate;
             }
 
-            if (_data.GetBool(offset++))
+            if (guards[(int)GuardType.Allocation])
             {
-                offset += Token2022Payment.Deserialize(_data, offset, out var resultToken2022Payment);
-                result.Token2022Payment = resultToken2022Payment;
+                offset += Allocation.Deserialize(_data, offset, out var allocation);
+                result.Allocation = allocation;
+            }
+
+            if (guards[(int)GuardType.Token2022Payment])
+            {
+                offset += Token2022Payment.Deserialize(_data, offset, out var token2022);
+                result.Token2022Payment = token2022;
             }
 
             return offset - initialOffset;
         }
-    }
-
-    public partial class GuardData { 
-        
-        public GuardSet Default { get; set; }
-
-        public Group[] Groups { get; set; }
     }
 
     public enum GuardType : byte
