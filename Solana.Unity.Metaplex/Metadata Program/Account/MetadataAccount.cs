@@ -131,7 +131,7 @@ namespace Solana.Unity.Metaplex.NFT.Library
                 int o = 0;
                 bool hasCreators = !(binData.Length < MetadataPacketLayout.creatorsCountOffset + 5 + numOfCreators * (32 + 1 + 1));
 
-                if (hasCreators == true)
+                if (hasCreators)
                 {
                     creators = MetadataProgramData.DecodeCreators(binData.GetSpan(MetadataPacketLayout.creatorsCountOffset + 4, numOfCreators * (32 + 2)));
                     o = MetadataPacketLayout.creatorsCountOffset + 4 + numOfCreators * (32 + 2);
@@ -182,7 +182,15 @@ namespace Solana.Unity.Metaplex.NFT.Library
                         string total = binData.GetU64(o).ToString("x");
                         o += 8;
                         o++;
-                        usesInfo = new Uses((UseMethod)useMethodENUM, Convert.ToInt32(remaining), Convert.ToInt32(total));
+                        try
+                        {
+                            usesInfo = new Uses((UseMethod)useMethodENUM, Convert.ToInt32(remaining), Convert.ToInt32(total));
+                        }
+                        catch (FormatException e)
+                        {
+                            Console.WriteLine(e);
+                            o -= 19;
+                        }
                     }
                     else
                     {
